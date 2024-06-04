@@ -2,9 +2,11 @@ const express = require('express')
 const app = express()
 const { Sequelize } = require('sequelize')
 
+// CONFIGURATION / MIDDLEWARE
 require('dotenv').config()
 const PORT = process.env.PORT
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
 // ROOT
 app.get('/', (req, res) => {
@@ -23,6 +25,10 @@ const sequelizeTest = async () => {
         console.error('Unable to connect to the database:', error)
     }
 }
+
+// CONTROLLERS
+const booksController = require('./controllers/books_controller')
+app.use('/books', booksController)
 
 
 // LISTEN
