@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     available: DataTypes.BOOLEAN,
     image: DataTypes.STRING,
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       allowNull: true
     },
     userId: {
