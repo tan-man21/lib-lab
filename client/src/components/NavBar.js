@@ -28,7 +28,7 @@ function NavBar() {
                 <Nav className="justify-content-end flex-grow-1 pe-3" variant='underline'>
                   <Nav.Link href="/">Home</Nav.Link>
                   <Nav.Link href="/books">Explore Books</Nav.Link>
-                  <Nav.Link href="/action3">My Books</Nav.Link>
+                  <Nav.Link href="/mybooks">My Books</Nav.Link>
                 </Nav>
               </Offcanvas.Body>
             </Navbar.Offcanvas>

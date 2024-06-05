@@ -6,6 +6,7 @@ import Hero from './components/Hero'
 import { Fragment } from 'react';
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import BookGallery from './components/BookGallery';
+import MyBooks from './components/MyBooks';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             </Fragment>
           }/>
           <Route path='/books' element={<BookGallery />} />
+          <Route path='/mybooks' element={<MyBooks />}/>
         </Routes>
       </Fragment>
     </Router>
