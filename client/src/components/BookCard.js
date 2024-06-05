@@ -21,4 +21,18 @@ function BookCard({book}) {
     if (theBook === null) {
         return <h1>Loading</h1>
     }
+
+    return (
+        <Card style={{ width: '13rem', height: '450px', margin: '10px', cursor: 'pointer'}} className='cardBody'>
+            <Card.Img variant="top" src={book.image} alt={book.title} style={{height: '300px'}} />
+            <Card.Body>
+              <Card.Title>{book.title}</Card.Title>
+              <Card.Text>
+                {book.author}
+              </Card.Text>
+            </Card.Body>
+        </Card>
+        )
 }
+
+export default BookCard

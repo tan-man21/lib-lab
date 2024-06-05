@@ -15,3 +15,13 @@
   background-color: rgba(255,255,255,0.6);
   background-blend-mode: lighten;
 }
+
+.book-gallery-container{
+  background-image: url('https://images.unsplash.com/photo-1495446815901-a7297e633e8d?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-color: rgba(255,255,255,0.6);
+  background-blend-mode: lighten;
+  background-size: cover;
+  max-width: 100%;
+  max-height: 80vh;
+  height: 100vh;
+}
