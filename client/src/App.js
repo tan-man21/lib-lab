@@ -15,20 +15,6 @@ import { useNavigate } from 'react-router-dom';
 
 function App() {
 
-  const { bookId } = useParams()
-
-    const [theBook, setTheBook] = useState([])
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`http://localhost:4000/books/${bookId}`)
-            const resData = await response.json()
-            setTheBook(resData)
-        }
-        fetchData()
-    }, [bookId])
-
-
   return (
     // <CurrentUserProvider>
     <Router>
