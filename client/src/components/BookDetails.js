@@ -25,7 +25,7 @@ function BookDetails({book}){
     return (
         <Fragment>
             <NavBar />
-            <Button variant="danger" href="/books">Back</Button>
+            <Button variant="outline-danger" href="/books">Back</Button>
             <div className="book-details-container">
                 <Card style={{ width: '13rem', height: '450px', margin: '10px', cursor: 'pointer'}} className='cardBody'>
                     <Card.Img variant="top" src={theBook.image} alt={theBook.title} style={{height: '300px'}} />
