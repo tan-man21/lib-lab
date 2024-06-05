@@ -12,7 +12,11 @@ function NavBar() {
   return (
         <Navbar key={'lg'} expand={'lg'} className="bg-body-tertiary" sticky='top'>
           <Container fluid>
-            <Navbar.Brand href="/">LibLab</Navbar.Brand>
+            <Navbar.Brand href="/">
+              <img src='/chemistry.png' alt='https://www.flaticon.com/free-icons/study'/>
+              {' '}
+              LibLab
+              </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
             <Navbar.Offcanvas
               id={`offcanvasNavbar-expand-lg`}
@@ -33,6 +37,7 @@ function NavBar() {
               </Offcanvas.Body>
             </Navbar.Offcanvas>
           </Container>
-        </Navbar>)}
+        </Navbar>
+        )}
 
 export default NavBar;

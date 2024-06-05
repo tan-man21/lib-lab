@@ -25,3 +25,8 @@
   max-height: 80vh;
   height: 100vh;
 }
+
+.book-details-container{
+  display: flex;
+  justify-content: center;
+}
