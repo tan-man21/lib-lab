@@ -26,4 +26,17 @@ books.get('/:id', async(req, res) => {
     }
 })
 
+// UPDATE book
+books.put('/:id', async(req, res) => {
+    try {
+        const updatedBook = await Book.update(
+            req.body,
+            { where: { bookId: req.params.id } }
+        )
+        res.status(200).json('Updated Book')
+    } catch (err) {
+        res.status(500).json(err.message)
+    }
+})
+
 module.exports = books

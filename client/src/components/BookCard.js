@@ -1,11 +1,11 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import { useState, useEffect } from 'react';
-import { Alert } from 'bootstrap';
 
 function BookCard({book}) {
 
     const [theBook, setTheBook] = useState([])
+    const [theBookAvailability, setTheBookAvailability] = useState(book.available)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,16 +16,30 @@ function BookCard({book}) {
         fetchData()
     }, [book.bookId])
 
+    const updateAvailablitity = async e => {
+      try {
+        const response = await fetch(`http://localhost:4000/books/${book.bookId}`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({available: false})
+        })
+        setTheBookAvailability(false)
+      } catch (err) {
+        console.error(err.message)
+    }
+    }
+
     function handleClick() {
+        updateAvailablitity();
         console.log(`Added ${book.title}, ${book.bookId} to MyBooks!`)
     }
 
     let bookAddButton = null
 
-    if(book.available === true) {
+    if(theBookAvailability) {
       bookAddButton = (
         <>
-          <Button variant='primary' onClick={(e) => {
+          <Button variant='outline-primary' onClick={(e) => {
             e.stopPropagation();
             handleClick()
           }}>Add to My Books</Button>
@@ -34,7 +48,7 @@ function BookCard({book}) {
     } else {
       bookAddButton = (
         <>
-          <Button variant='secondary' disabled>Unavailable</Button>
+          <Button variant='secondary' onClick={(e) => {e.stopPropagation()}} style={{opacity: '60%'}}>Unavailable</Button>
         </>
       )
     }

@@ -22,18 +22,42 @@ function BookDetails({book}){
         fetchData()
     }, [bookId])
 
+    function handleClick() {
+        console.log(`Added ${book.title}, ${book.bookId} to MyBooks!`)
+    }
+
+    let bookAddButton = null
+
+    if(theBook.available === true) {
+      bookAddButton = (
+        <>
+          <Button variant='outline-primary' onClick={(e) => {
+            e.stopPropagation();
+            handleClick()
+          }}>Add to My Books</Button>
+        </>
+      )
+    } else {
+      bookAddButton = (
+        <>
+          <Button variant='secondary' onClick={(e) => {e.stopPropagation()}} style={{opacity: '60%'}}>Unavailable</Button>
+        </>
+      )
+    }
+
     return (
         <Fragment>
             <NavBar />
             <Button variant="outline-danger" href="/books">Back</Button>
             <div className="book-details-container">
-                <Card style={{ width: '13rem', height: '450px', margin: '10px', cursor: 'pointer'}} className='cardBody'>
-                    <Card.Img variant="top" src={theBook.image} alt={theBook.title} style={{height: '300px'}} />
+                <Card style={{ width: '14rem', height: '425px', margin: '10px', cursor: 'pointer'}} className='cardBody'>
+                    <Card.Img variant="top" src={theBook.image} alt={theBook.title} style={{height: '250px'}} />
                     <Card.Body>
                     <Card.Title>{theBook.title}</Card.Title>
                     <Card.Text>
                         {theBook.author}
                     </Card.Text>
+                    {bookAddButton}
                     </Card.Body>
                 </Card>
             </div>
