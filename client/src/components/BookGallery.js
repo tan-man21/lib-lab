@@ -2,8 +2,11 @@ import React, { Fragment } from 'react';
 import { useEffect, useState } from 'react';
 import BookCard from './BookCard';
 import NavBar from './NavBar';
+import { useNavigate } from 'react-router';
 
 function BookGallery() {
+
+    const navigate = useNavigate()
 
     const [books, setBooks] = useState([])
 
@@ -24,7 +27,7 @@ function BookGallery() {
                 <ul style={{textAlign: 'center'}}>
                     {books.map((book) => {
                         return (
-                            <li key={book.bookId} style={{listStyle: 'none', display: 'inline-block'}}>
+                            <li key={book.bookId} style={{listStyle: 'none', display: 'inline-block'}} onClick={() => navigate(`/books/${book.bookId}`)}>
                             <BookCard book={book} />
                             </li>
                         )
