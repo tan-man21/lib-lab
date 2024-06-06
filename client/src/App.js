@@ -32,7 +32,7 @@ function App() {
           <Route path='/mybooks' element={<MyBooks />}/>
           <Route path={`/books/:bookId`} element={<BookDetails />} />
           <Route path='/signup' element={<SignUp />} />
-          <Route path='login' element={<Login />} />
+          <Route path='/login' element={<Login />} />
         </Routes>
       </Fragment>
     </Router>

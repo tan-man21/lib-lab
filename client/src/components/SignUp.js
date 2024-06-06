@@ -5,11 +5,11 @@ import Col from 'react-bootstrap/Col'
 import Row from "react-bootstrap/Row"
 import Stack from 'react-bootstrap/Stack'
 import { useState } from "react"
-import { Navigate } from "react-router"
+import { useNavigate } from "react-router"
 
 function SignUp() {
 
-    const navigate = Navigate()
+    const navigate = useNavigate()
 
     const [user, setUser] = useState({
         firstName: '',
