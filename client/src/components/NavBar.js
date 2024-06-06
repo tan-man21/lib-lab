@@ -13,7 +13,7 @@ function NavBar() {
       <>
         <Nav className="justify-content-end" variant='underline'>
           <Nav.Link href='/login'>Login</Nav.Link>
-          <Nav.Link href='signup'>Sign Up</Nav.Link>
+          <Nav.Link href='/signup'>Sign Up</Nav.Link>
         </Nav>
       </>
     )
@@ -38,7 +38,7 @@ function NavBar() {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <Nav className="justify-content-center flex-grow-1" variant='underline'>
+                <Nav className="justify-content-center flex-grow-1" variant='underline' style={{paddingLeft: '25px'}}>
                   <Nav.Link href="/">Home</Nav.Link>
                   <Nav.Link href="/books">Explore Books</Nav.Link>
                   <Nav.Link href="/mybooks">My Books</Nav.Link>

@@ -11,23 +11,23 @@ function Login() {
         <div style={{backgroundColor: '#5a729d', height: '100vh'}}>
             <NavBar />
             <div className="signup-container">
-                <h1 style={{textAlign: 'center', marginBottom: '40px'}}>Sign Up Here</h1>
+                <h1 style={{textAlign: 'center', marginBottom: '40px'}}>Login Here</h1>
                 <Form className="p-2">
                     <Form.Group className="mb-3" controlId="formGridEmail">
                         <Form.Label>Email Address</Form.Label>
                         <Form.Control type="email" placeholder="hedwig@hogwarts.com" />
                     </Form.Group>
 
-                    <Form.Group className="mb-4" controlId="formGridPassword">
+                    <Form.Group className="mb-5" controlId="formGridPassword">
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" placeholder="nimbus2000" />
                     </Form.Group>
 
-                    <Stack gap={5} className="col-md-4 mx-auto">
+                    <Stack gap={4} className="col-md-4 mx-auto">
                         <Button variant="dark" type="submit">
                             Login
                         </Button>
-                        <Button variant="outline-dark">
+                        <Button variant="outline-dark" href="/signup">
                             Sign Up
                         </Button>
                     </Stack>

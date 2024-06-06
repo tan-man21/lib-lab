@@ -39,7 +39,7 @@ function SignUp() {
                         <Button variant="dark" type="submit">
                             Sign Up
                         </Button>
-                        <Button variant="outline-dark">
+                        <Button variant="outline-dark" href="/login">
                             Login
                         </Button>
                     </Stack>
