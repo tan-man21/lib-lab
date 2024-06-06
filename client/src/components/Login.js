@@ -1,11 +1,16 @@
 import NavBar from "./NavBar"
 import Button from "react-bootstrap/Button"
 import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
 import Row from "react-bootstrap/Row"
 import Stack from 'react-bootstrap/Stack'
+import { useState } from 'react'
 
 function Login() {
+
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: ''
+    })
 
     return (
         <div style={{backgroundColor: '#5a729d', height: '100vh'}}>
