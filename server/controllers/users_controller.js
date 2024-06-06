@@ -12,11 +12,7 @@ router.get('/', async (req, res) => {
 
 // CREATE a new user
 router.post('/', async (req, res) => {
-    let { password, ...rest } = req.body
-    const newUser = await User.create({
-        ...rest,
-        passwordDigest: await bcrypt.hash(password, 10)
-    })
+    const newUser = await User.create(req.body)
     res.json(newUser)
 })
 
