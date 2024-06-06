@@ -35,3 +35,13 @@
 .logo-container{
   position: absolute;
 }
+
+.signup-container{
+  background-color: #f8f9fa;
+  width: 385px;
+  height: 80%;
+  margin: auto;
+  position: relative;
+  top: 5vh;
+  border-radius: 18px;
+}
