@@ -7,7 +7,7 @@ import { CurrentUser } from '../contexts/CurrentUser';
 
 function NavBar() {
 
-    // const { currentUser } = useContext(CurrentUser)
+    const { currentUser } = useContext(CurrentUser)
 
     let loginActions = (
       <>
@@ -17,6 +17,16 @@ function NavBar() {
         </Nav>
       </>
     )
+
+    if(currentUser){
+      loginActions = (
+        <>
+          <Nav className='justify-content-end' variant='underline'>
+            <Nav.Link disabled style={{color: 'rgb(0 0 0 / 65%)'}}>Greetings, {currentUser.firstName}</Nav.Link>
+          </Nav>
+        </>
+      )
+    }
 
   return (
         <Navbar key={'lg'} expand={'lg'} className="bg-body-tertiary" sticky='top'>

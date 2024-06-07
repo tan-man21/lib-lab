@@ -13,12 +13,8 @@ router.post('/', async (req, res) => {
             message: 'Could not find a user with the provided email or password'
         })
     } else {
-        res.status(200).json({
-            message: `Welcome, ${user.firstName}`
-        })
+        res.status(200).json({user})
     }
 })
-
-router.get('/profile')
 
 module.exports = router

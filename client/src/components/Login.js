@@ -22,7 +22,7 @@ function Login() {
     async function handleSubmit(e){
         e.preventDefault()
 
-        const response = await fetch(`http://localhost:4000/auth`, {
+        const response = await fetch(`http://localhost:4000/auth/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -31,16 +31,11 @@ function Login() {
         })
         const data = await response.json()
         
-        if(response.ok){
-            setCurrentUser(data.user)
+        if(response.status === 200){
+            await setCurrentUser(data.user)
             navigate('/')
         } else{
             navigate('/login')
-            return(
-            <>
-                <Alert variant={'danger'}>Could Not Login</Alert>
-            </>
-            )
         }
     }
 
