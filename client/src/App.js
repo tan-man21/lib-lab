@@ -18,25 +18,25 @@ import { useNavigate } from 'react-router-dom';
 function App() {
 
   return (
-    // <CurrentUserProvider>
-    <Router>
-      <Fragment>
-        <Routes>
-          <Route path='/' element={
-            <Fragment>
-              <NavBar />
-              <Hero />
-            </Fragment>
-          }/>
-          <Route path='/books' element={<BookGallery />} />
-          <Route path='/mybooks' element={<MyBooks />}/>
-          <Route path={`/books/:bookId`} element={<BookDetails />} />
-          <Route path='/signup' element={<SignUp />} />
-          <Route path='/login' element={<Login />} />
-        </Routes>
-      </Fragment>
-    </Router>
-    // </CurrentUserProvider>
+    <CurrentUserProvider>
+      <Router>
+        <Fragment>
+          <Routes>
+            <Route path='/' element={
+              <Fragment>
+                <NavBar />
+                <Hero />
+              </Fragment>
+            }/>
+            <Route path='/books' element={<BookGallery />} />
+            <Route path='/mybooks' element={<MyBooks />}/>
+            <Route path={`/books/:bookId`} element={<BookDetails />} />
+            <Route path='/signup' element={<SignUp />} />
+            <Route path='/login' element={<Login />} />
+          </Routes>
+        </Fragment>
+      </Router>
+    </CurrentUserProvider>
   );
 }
 
