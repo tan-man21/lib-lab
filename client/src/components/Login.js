@@ -19,6 +19,8 @@ function Login() {
         password: ''
     })
 
+    const [error, setError] = useState(null)
+
     async function handleSubmit(e){
         e.preventDefault()
 
@@ -35,8 +37,20 @@ function Login() {
             await setCurrentUser(data.user)
             navigate('/')
         } else{
-            navigate('/login')
+            setError('Cannot Login, please try again!')
         }
+    }
+
+    let errorAlert = (
+        <></>
+    )
+
+    if(error){
+        errorAlert = (
+            <>
+            <Alert variant="danger" dismissible>{error}</Alert>
+            </>
+        )
     }
 
     return (
@@ -44,6 +58,7 @@ function Login() {
             <NavBar />
             <div className="signup-container">
                 <h1 style={{textAlign: 'center', marginBottom: '40px'}}>Login Here</h1>
+                {errorAlert}
                 <Form className="p-2" onSubmit={handleSubmit}>
                     <Form.Group className="mb-3">
                         <Form.Label>Email Address</Form.Label>
