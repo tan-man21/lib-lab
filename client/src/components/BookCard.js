@@ -1,11 +1,16 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
-import { useState, useEffect } from 'react';
+import Alert from 'react-bootstrap/Alert'
+import { useState, useEffect, useContext } from 'react';
+import { CurrentUser } from '../contexts/CurrentUser';
 
 function BookCard({book}) {
 
+    const { currentUser } = useContext(CurrentUser)
+  
     const [theBook, setTheBook] = useState([])
     const [theBookAvailability, setTheBookAvailability] = useState(book.available)
+    const [error, setError] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
@@ -16,17 +21,35 @@ function BookCard({book}) {
         fetchData()
     }, [book.bookId])
 
-    const updateAvailablitity = async e => {
-      try {
-        const response = await fetch(`http://localhost:4000/books/${book.bookId}`, {
-          method: 'PUT',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({available: false})
-        })
-        setTheBookAvailability(false)
-      } catch (err) {
-        console.error(err.message)
+    let errorAlert = (
+      <></>
+    )
+
+    if(error){
+        errorAlert = (
+            <>
+            <Alert variant="danger" dismissible onClick={(e) => {
+            e.stopPropagation();
+          }}>{error}</Alert>
+            </>
+        )
     }
+
+    const updateAvailablitity = async e => {
+      if (currentUser) {
+        try {
+          const response = await fetch(`http://localhost:4000/books/${book.bookId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({available: false, userId: currentUser.userId})
+          })
+          setTheBookAvailability(false)
+        } catch (err) {
+          console.error(err.message)
+        }
+      } else {
+        setError('Please login to add to MyBooks')
+      }
     }
 
     function handleClick() {
@@ -62,6 +85,7 @@ function BookCard({book}) {
                 {book.author}
               </Card.Text>
               {bookAddButton}
+              {errorAlert}
             </Card.Body>
         </Card>
         )
