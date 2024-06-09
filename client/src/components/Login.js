@@ -35,6 +35,7 @@ function Login() {
         
         if(response.status === 200){
             await setCurrentUser(data.user)
+            localStorage.setItem('token', data.token)
             navigate('/')
         } else{
             setError('Cannot Login, please try again!')
