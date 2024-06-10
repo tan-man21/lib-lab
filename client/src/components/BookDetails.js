@@ -1,34 +1,53 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card'
 import NavBar from "./NavBar";
 import Button from 'react-bootstrap/Button'
+import { CurrentUser } from "../contexts/CurrentUser";
 
 function BookDetails({book}){
+
+  const { currentUser } = useContext(CurrentUser)
 
     const { bookId } = useParams()
 
     const navigate = useNavigate()
 
     const [theBook, setTheBook] = useState({})
+    const [theBookAvailability, setTheBookAvailability] = useState(null)
 
     useEffect(() => {
         const fetchData = async () => {
             const response = await fetch(`http://localhost:4000/books/${bookId}`)
             const resData = await response.json()
             setTheBook(resData)
+            setTheBookAvailability(resData.available)
         }
         fetchData()
     }, [bookId])
 
+    const updateAvailablitity = async e => {
+      try {
+        const response = await fetch(`http://localhost:4000/books/${theBook.bookId}`, {
+          method: 'PUT',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({available: false})
+        })
+        setTheBookAvailability(false)
+      } catch (err) {
+        console.error(err.message)
+    }
+    }
+
     function handleClick() {
-        console.log(`Added ${book.title}, ${book.bookId} to MyBooks!`)
+        updateAvailablitity();
+        console.log(`Added ${theBook.title}, ${theBook.bookId} to MyBooks!`)
     }
 
     let bookAddButton = null
 
-    if(theBook.available === true) {
+    if(theBookAvailability) {
       bookAddButton = (
         <>
           <Button variant='outline-primary' onClick={(e) => {

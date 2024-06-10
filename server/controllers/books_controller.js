@@ -1,5 +1,6 @@
 const books = require('express').Router()
 const { Book, User } = require('../models')
+const jwt = require('json-web-token')
 const { Op } = require('sequelize')
 
 // GET all books
@@ -11,6 +12,27 @@ books.get('/', async(req, res) => {
         res.json(allBooks)
     } catch (err) {
         res.send(err.message)
+    }
+})
+
+// GET all books with userId
+books.get('/userbooks', async(req, res) => {
+    try {
+        const [authenticationMethod, token] = req.headers.authorization.split(' ')
+
+        if(authenticationMethod == 'Bearer'){
+            const result = await jwt.decode(process.env.JWT_SECRET, token)
+            const { id } = result.value
+
+            let allUserBooks = await Book.findAll({
+                where: {
+                    userId: id
+                }
+            })
+            res.json(allUserBooks)
+        }
+    } catch {
+        res.json(null)
     }
 })
 

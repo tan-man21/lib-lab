@@ -1,10 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { useEffect, useState } from 'react';
 import BookCard from './BookCard';
 import NavBar from './NavBar';
 import { useNavigate } from 'react-router';
+import { CurrentUser } from '../contexts/CurrentUser';
 
 function BookGallery() {
+
+    const { currentUser } = useContext(CurrentUser)
 
     const navigate = useNavigate()
 

@@ -32,6 +32,12 @@ const sequelizeTest = async () => {
 const booksController = require('./controllers/books_controller')
 app.use('/books', booksController)
 
+const usersController = require('./controllers/users_controller')
+app.use('/users', usersController)
+
+const authController = require('./controllers/authentication_controller')
+app.use('/auth', authController)
+
 
 // LISTEN
 app.listen(PORT, async () => {
