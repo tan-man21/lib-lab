@@ -35,7 +35,7 @@ function BookCard({book}) {
         )
     }
 
-    const updateAvailablitity = async e => {
+    const addBook = async e => {
       if (currentUser) {
         try {
           const response = await fetch(`http://localhost:4000/books/${book.bookId}`, {
@@ -52,9 +52,27 @@ function BookCard({book}) {
       }
     }
 
-    function handleClick() {
-        updateAvailablitity();
-        console.log(`Added ${book.title}, ${book.bookId} to MyBooks!`)
+    const returnBook = async e => {
+      if (currentUser && currentUser.userId === book.userId){
+        try {
+          const response = await fetch(`http://localhost:4000/books/${book.bookId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({available: true, userId: null})
+          })
+          setTheBookAvailability(true)
+        } catch (err) {
+          console.error(err.message)
+        }
+      }
+    }
+
+    function handleReturn(){
+      returnBook();
+    }
+
+    function handleAdd() {
+        addBook();
     }
 
     let bookAddButton = null
@@ -64,8 +82,17 @@ function BookCard({book}) {
         <>
           <Button variant='outline-primary' onClick={(e) => {
             e.stopPropagation();
-            handleClick()
+            handleAdd()
           }}>Add to My Books</Button>
+        </>
+      )
+    } else if (currentUser && currentUser.userId === book.userId) {
+      bookAddButton = (
+        <>
+          <Button variant='outline-secondary' onClick={(e) => {
+            e.stopPropagation();
+            handleReturn()
+          }}>Return</Button>
         </>
       )
     } else {
