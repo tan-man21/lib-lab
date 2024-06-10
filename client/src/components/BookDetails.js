@@ -1,11 +1,14 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card'
 import NavBar from "./NavBar";
 import Button from 'react-bootstrap/Button'
+import { CurrentUser } from "../contexts/CurrentUser";
 
 function BookDetails({book}){
+
+  const { currentUser } = useContext(CurrentUser)
 
     const { bookId } = useParams()
 
