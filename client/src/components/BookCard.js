@@ -9,19 +9,27 @@ function BookCard({book}) {
 
     const { currentUser } = useContext(CurrentUser)
   
-    const [theBook, setTheBook] = useState([])
-    const [theBookAvailability, setTheBookAvailability] = useState(book.available)
+    const [theBook, setTheBook] = useState(book)
+    // const [theBookAvailability, setTheBookAvailability] = useState(book.available)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false) //chatGPT
 
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`http://localhost:4000/books/${book.bookId}`)
-            const resData = await response.json()
-            setTheBook(resData)
+      const fetchData = async () => {
+        setLoading(true)
+        try {
+          const response = await fetch(`http://localhost:4000/books/${book.bookId}`)
+          const resData = await response.json()
+          setTheBook(resData)
+          setLoading(false)
+        } catch (err) {
+          console.error(err.message)
+          setError(err.message)
+          setLoading(false)
         }
-        fetchData()
-    }, [book.bookId, theBook])
+      }
+      fetchData()
+    }, [theBook.bookId])
 
     let errorAlert = (
       <></>
@@ -46,7 +54,9 @@ function BookCard({book}) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({available: false, userId: currentUser.userId})
           })
-          setTheBookAvailability(false)
+          // setTheBookAvailability(false)
+          const updatedBook = await response.json()
+          setTheBook(updatedBook)
           setLoading(false)
         } catch (err) {
           console.error(err.message)
@@ -66,7 +76,9 @@ function BookCard({book}) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({available: true, userId: null})
           })
-          setTheBookAvailability(true)
+          // setTheBookAvailability(true)
+          const updatedBook = await response.json()
+          setTheBook(updatedBook)
           setLoading(false)
         } catch (err) {
           console.error(err.message)
@@ -77,12 +89,10 @@ function BookCard({book}) {
 
     function handleReturn(){
       returnBook();
-      // window.location.reload();
     }
 
     function handleAdd() {
         addBook();
-        // window.location.reload();
     }
 
     let bookAddButton = null
@@ -90,10 +100,10 @@ function BookCard({book}) {
     if(loading) {
       bookAddButton = (
         <>
-          <Button variant='info' disabled>Loading...</Button>
+          <Button variant='outline-secondary' disabled>Loading...</Button>
         </>
       )
-    } else if(theBook && theBookAvailability) {
+    } else if(theBook.available) {
       bookAddButton = (
         <>
           <Button variant='outline-primary' onClick={(e) => {
@@ -111,16 +121,10 @@ function BookCard({book}) {
           }}>Return</Button>
         </>
       )
-    } else if(theBook) {
+    }  else {
       bookAddButton = (
         <>
           <Button variant='secondary' onClick={(e) => {e.stopPropagation()}} style={{opacity: '60%'}}>Unavailable</Button>
-        </>
-      )
-    } else {
-      bookAddButton = (
-        <>
-          <Button variant='info' disabled>Loading...</Button>
         </>
       )
     }

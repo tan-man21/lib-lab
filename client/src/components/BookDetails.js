@@ -2,11 +2,12 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card'
+import Alert from 'react-bootstrap/Alert'
 import NavBar from "./NavBar";
 import Button from 'react-bootstrap/Button'
 import { CurrentUser } from "../contexts/CurrentUser";
 
-function BookDetails({book}){
+function BookDetails(book){
 
   const { currentUser } = useContext(CurrentUser)
 
@@ -14,49 +15,120 @@ function BookDetails({book}){
 
     const navigate = useNavigate()
 
-    const [theBook, setTheBook] = useState({})
-    const [theBookAvailability, setTheBookAvailability] = useState(null)
+    const [theBook, setTheBook] = useState(book)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(false) //chatGPT
+    // const [theBookAvailability, setTheBookAvailability] = useState(book.available)
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch(`http://localhost:4000/books/${bookId}`)
-            const resData = await response.json()
-            setTheBook(resData)
-            setTheBookAvailability(resData.available)
+        setLoading(true)
+        try{
+          const response = await fetch(`http://localhost:4000/books/${bookId}`)
+          const resData = await response.json()
+          setTheBook(resData)
+          setLoading(false)
+        } catch (err) {
+          console.error(err.message)
+          setError(err.message)
+          setLoading(false)
+        }
+            // setTheBookAvailability(resData.available)
         }
         fetchData()
-    }, [bookId])
+    }, [bookId, theBook.userId])
 
-    const updateAvailablitity = async e => {
-      try {
-        const response = await fetch(`http://localhost:4000/books/${theBook.bookId}`, {
-          method: 'PUT',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify({available: false})
-        })
-        setTheBookAvailability(false)
-      } catch (err) {
-        console.error(err.message)
-    }
+    let errorAlert = (
+      <></>
+    )
+
+    if(error){
+        errorAlert = (
+            <>
+            <Alert variant="danger" dismissible onClick={(e) => {
+            e.stopPropagation();
+          }}>{error}</Alert>
+            </>
+        )
     }
 
-    function handleClick() {
-        updateAvailablitity();
-        console.log(`Added ${theBook.title}, ${theBook.bookId} to MyBooks!`)
+    const addBook = async e => {
+      if (currentUser) {
+        setLoading(true)
+        try {
+          const response = await fetch(`http://localhost:4000/books/${theBook.bookId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({available: false, userId: currentUser.userId})
+          })
+          // setTheBookAvailability(false)
+          const updatedBook = await response.json()
+          setTheBook(updatedBook)
+          setLoading(false)
+        } catch (err) {
+          console.error(err.message)
+          setLoading(false)
+        }
+      } else {
+        setError('Please login to add to MyBooks')
+      }
+    }
+
+    const returnBook = async e => {
+      if (currentUser && currentUser.userId === theBook.userId){
+        setLoading(true)
+        try {
+          const response = await fetch(`http://localhost:4000/books/${theBook.bookId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({available: true, userId: null})
+          })
+          // setTheBookAvailability(true)
+          const updatedBook = await response.json()
+          setTheBook(updatedBook)
+          setLoading(false)
+        } catch (err) {
+          console.error(err.message)
+          setLoading(false)
+        }
+      }
+    }
+
+    function handleReturn(){
+      returnBook();
+    }
+
+    function handleAdd() {
+        addBook();
     }
 
     let bookAddButton = null
 
-    if(theBookAvailability) {
+    if(loading) {
+      bookAddButton = (
+        <>
+          <Button variant='outline-secondary' disabled>Loading...</Button>
+        </>
+      )
+    } else if(theBook.available) {
       bookAddButton = (
         <>
           <Button variant='outline-primary' onClick={(e) => {
             e.stopPropagation();
-            handleClick()
+            handleAdd()
           }}>Add to My Books</Button>
         </>
       )
-    } else {
+    } else if (theBook && currentUser && currentUser.userId === theBook.userId) {
+      bookAddButton = (
+        <>
+          <Button variant='outline-secondary' onClick={(e) => {
+            e.stopPropagation();
+            handleReturn()
+          }}>Return</Button>
+        </>
+      )
+    }  else {
       bookAddButton = (
         <>
           <Button variant='secondary' onClick={(e) => {e.stopPropagation()}} style={{opacity: '60%'}}>Unavailable</Button>

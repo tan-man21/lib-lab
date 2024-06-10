@@ -14,16 +14,19 @@ function MyBooks() {
 
     const [myBooks, setMyBooks] = useState([])
 
+
+    const fetchData = async () => {
+        const response = await fetch(`http://localhost:4000/books/userbooks`, {
+            headers: {
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+        const resData = await response.json()
+        setMyBooks(resData)
+    }
+    fetchData()
+
     useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch(`http://localhost:4000/books/userbooks`, {
-                headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
-            })
-            const resData = await response.json()
-            setMyBooks(resData)
-        }
         fetchData()
     }, [])
 
@@ -31,7 +34,7 @@ function MyBooks() {
         <></>
     )
 
-    if(currentUser && !myBooks) {
+    if(currentUser && myBooks.length === 0) {
         myBooksSection = (
             <><h3>No Books Added</h3></>
         )

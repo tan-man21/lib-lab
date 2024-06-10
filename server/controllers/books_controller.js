@@ -24,7 +24,7 @@ books.get('/userbooks', async(req, res) => {
             const result = await jwt.decode(process.env.JWT_SECRET, token)
             const { id } = result.value
 
-            let allUserBooks = await Book.findAll({
+            const allUserBooks = await Book.findAll({
                 where: {
                     userId: id
                 }
