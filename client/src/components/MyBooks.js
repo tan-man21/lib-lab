@@ -24,7 +24,6 @@ function MyBooks() {
         const resData = await response.json()
         setMyBooks(resData)
     }
-    fetchData()
 
     useEffect(() => {
         fetchData()

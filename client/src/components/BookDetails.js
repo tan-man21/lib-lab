@@ -47,7 +47,8 @@ function BookDetails(book){
             <>
             <Alert variant="danger" dismissible onClick={(e) => {
             e.stopPropagation();
-          }}>{error}</Alert>
+            }} 
+          >{error}</Alert>
             </>
         )
     }
@@ -149,6 +150,7 @@ function BookDetails(book){
                         {theBook.author}
                     </Card.Text>
                     {bookAddButton}
+                    {errorAlert}
                     </Card.Body>
                 </Card>
             </div>
