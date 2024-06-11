@@ -7,7 +7,7 @@ const { Op } = require('sequelize')
 books.get('/', async(req, res) => {
     try {
         const allBooks = await Book.findAll({
-            order: [['title', 'ASC']]
+            order: [['author', 'ASC']]
         })
         res.json(allBooks)
     } catch (err) {

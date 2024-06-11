@@ -35,8 +35,9 @@
 
 .empty-book-container{
   background-color: white;
-  width: 75%;
   margin: auto;
+  margin-top: 15px;
+  border-radius: 10px;
 }
 
 .logo-container{
