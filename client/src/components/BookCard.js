@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from 'react';
 import { CurrentUser } from '../contexts/CurrentUser';
 import { useNavigate } from 'react-router';
 
-function BookCard({book}) {
+function BookCard({book, onBookReturn}) {
 
     const { currentUser } = useContext(CurrentUser)
   
@@ -29,7 +29,7 @@ function BookCard({book}) {
         }
       }
       fetchData()
-    }, [theBook.bookId])
+    }, [theBook.bookId, theBook.userId])
 
     let errorAlert = (
       <></>
@@ -80,6 +80,7 @@ function BookCard({book}) {
           const updatedBook = await response.json()
           setTheBook(updatedBook)
           setLoading(false)
+          onBookReturn(book.bookId)
         } catch (err) {
           console.error(err.message)
           setLoading(false)

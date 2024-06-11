@@ -29,6 +29,10 @@ function MyBooks() {
         fetchData()
     }, [])
 
+    const handleBookReturn = (bookId) => {
+        setMyBooks(myBooks.filter(book => book.bookId !== bookId));
+    };
+
     let myBooksSection = (
         <></>
     )
@@ -48,7 +52,7 @@ function MyBooks() {
                     {myBooks.map((book) => {
                         return (
                             <li key={book.bookId} style={{listStyle: 'none', display: 'inline-block'}} onClick={() => navigate(`/books/${book.bookId}`)}>
-                            <BookCard book={book} />
+                            <BookCard book={book} onBookReturn={handleBookReturn} />
                             </li>
                         )
                     })}
