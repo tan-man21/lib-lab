@@ -1,6 +1,7 @@
 import { Fragment } from "react"
 import BookCard from './BookCard';
 import NavBar from './NavBar';
+import Button from 'react-bootstrap/Button'
 import { useNavigate } from 'react-router';
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUser } from '../contexts/CurrentUser';
@@ -39,7 +40,15 @@ function MyBooks() {
 
     if(currentUser && myBooks.length === 0) {
         myBooksSection = (
-            <><h3>No Books Added</h3></>
+            <>
+            <div className="book-gallery-container">
+                <div className="empty-book-container">
+                    <img src="stack-of-books.png" />
+                    <h4>Your Book List is Empty</h4>
+                    <Button href="/books">Add Books from our Book Gallery</Button>
+                </div>
+            </div>
+            </>
         )
     } else if(!currentUser) {
         myBooksSection = (
@@ -64,7 +73,6 @@ function MyBooks() {
     return (
         <Fragment>
             <NavBar />
-            <h1>My Books</h1>
             {myBooksSection}
         </Fragment>
     )

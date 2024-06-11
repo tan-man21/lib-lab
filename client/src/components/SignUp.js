@@ -32,7 +32,7 @@ function SignUp() {
     }
 
     return (
-        <div style={{backgroundColor: '#5a729d', height: '100vh'}}>
+        <div style={{backgroundColor: '#a7b5ce', height: '100vh'}}>
             <NavBar />
             <div className="signup-container">
                 <h1 style={{textAlign: 'center', marginBottom: '40px'}}>Sign Up Here</h1>

@@ -33,6 +33,12 @@
   justify-content: center;
 }
 
+.empty-book-container{
+  background-color: white;
+  width: 75%;
+  margin: auto;
+}
+
 .logo-container{
   position: absolute;
 }
