@@ -1,10 +1,11 @@
-import { Fragment, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
 import Card from 'react-bootstrap/Card'
 import Alert from 'react-bootstrap/Alert'
 import NavBar from "./NavBar";
 import Button from 'react-bootstrap/Button'
 import { CurrentUser } from "../contexts/CurrentUser";
+import CommentModal from "./CommentModal";
 
 function BookDetails(book){
 
@@ -15,7 +16,10 @@ function BookDetails(book){
     const [theBook, setTheBook] = useState(book)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false) //chatGPT
-    // const [theBookAvailability, setTheBookAvailability] = useState(book.available)
+    const [showModal, setShowModal] = useState(false)
+
+    const handleClose = () => setShowModal(false);
+    const handleShow = () => setShowModal(true);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,7 +34,6 @@ function BookDetails(book){
           setError(err.message)
           setLoading(false)
         }
-            // setTheBookAvailability(resData.available)
         }
         fetchData()
     }, [bookId, theBook.userId])
@@ -59,7 +62,6 @@ function BookDetails(book){
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({available: false, userId: currentUser.userId})
           })
-          // setTheBookAvailability(false)
           const updatedBook = await response.json()
           setTheBook(updatedBook)
           setLoading(false)
@@ -81,7 +83,6 @@ function BookDetails(book){
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({available: true, userId: null})
           })
-          // setTheBookAvailability(true)
           const updatedBook = await response.json()
           setTheBook(updatedBook)
           setLoading(false)
@@ -134,6 +135,51 @@ function BookDetails(book){
       )
     }
 
+    async function createReview(reviewAttributes) {
+      const response = await fetch(`http://localhost:4000/books/${bookId}/reviews`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(reviewAttributes)
+      })
+
+      const review = await response.json()
+
+      setTheBook({
+        ...theBook,
+        reviews: [
+          ...theBook.reviews,
+          review
+        ]
+      })
+    }
+
+    let reviewSection = null
+
+    if(!currentUser && !theBook.reviews){
+      reviewSection = (
+        <>
+          <div className="review-container">
+            <h3>Reviews</h3>
+            <p>No Reviews Yet.</p>
+            <Button variant="outline-dark" href="/login">Sign In to Leave Yours!</Button>
+          </div>
+        </>
+      )
+    } else if(currentUser && theBook.reviews){
+      reviewSection = (
+        <>
+          <div className="review-container">
+            <h3>Reviews</h3>
+            <p>No Reviews Yet.</p>
+            <Button variant="outline-dark" onClick={handleShow}>Leave a Review</Button>
+          </div>
+        </>
+      )
+    }
+
     return (
         <div style={{backgroundColor: '#a7b5ce', overflow: 'auto', height: '100vh'}}>
             <NavBar />
@@ -151,7 +197,9 @@ function BookDetails(book){
                     </Card.Body>
                 </Card>
             </div>
-            <h5>{theBook.description}</h5>
+            <h5 style={{padding: '10px'}}>{theBook.description}</h5>
+            {reviewSection}
+            <CommentModal onSubmit={createReview} show={showModal} onHide={handleClose} book={book} />
         </div>
         )
 }

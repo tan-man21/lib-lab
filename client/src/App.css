@@ -73,3 +73,10 @@
   align-content: center;
   font-size: larger;
 }
+
+.review-container{
+  background-color: #f8f9fa;
+  margin: 15px;
+  padding: 15px;
+  border-radius: 10px;
+}

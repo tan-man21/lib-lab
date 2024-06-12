@@ -1,7 +1,8 @@
 const books = require('express').Router()
-const { Book, User } = require('../models')
+const { Book, User, Review } = require('../models')
 const jwt = require('json-web-token')
 const { Op } = require('sequelize')
+
 
 // GET all books
 books.get('/', async(req, res) => {
@@ -40,7 +41,11 @@ books.get('/userbooks', async(req, res) => {
 books.get('/:id', async(req, res) => {
     try {
         const oneBook = await Book.findOne({
-            where: { bookId: req.params.id }
+            where: { bookId: req.params.id },
+            include: {
+                model: Review,
+                as: 'reviews'
+            }
         })
         res.json(oneBook)
     } catch (err) {
@@ -59,6 +64,39 @@ books.put('/:id', async(req, res) => {
     } catch (err) {
         res.status(500).json(err.message)
     }
+})
+
+// CREATE review
+books.post('/:id/reviews', async (req, res) => {
+
+    let currentUser;
+    try {
+        const [authenticationMethod, token] = req.headers.authorization.split(' ')
+
+        if(authenticationMethod == 'Bearer'){
+            const result = await jwt.decode(process.env.JWT_SECRET, token)
+            const { id } = result.value
+
+            currentUser = await User.findOne({
+                where: {
+                    userId: id
+                }
+            })
+        }
+    } catch(err) {
+        currentUser = null
+    }
+
+    const review = await Review.create({
+        ...req.body,
+        userId: currentUser.userId,
+        bookId: req.params.id
+    })
+
+    res.send({
+        ...review.toJSON(),
+        user: currentUser
+    })
 })
 
 module.exports = books
