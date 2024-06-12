@@ -1,6 +1,5 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { useNavigate } from 'react-router-dom';
 import Card from 'react-bootstrap/Card'
 import Alert from 'react-bootstrap/Alert'
 import NavBar from "./NavBar";
@@ -12,8 +11,6 @@ function BookDetails(book){
   const { currentUser } = useContext(CurrentUser)
 
     const { bookId } = useParams()
-
-    const navigate = useNavigate()
 
     const [theBook, setTheBook] = useState(book)
     const [error, setError] = useState(null)
@@ -138,9 +135,9 @@ function BookDetails(book){
     }
 
     return (
-        <Fragment>
+        <div style={{backgroundColor: '#a7b5ce', overflow: 'auto', height: '100vh'}}>
             <NavBar />
-            <Button variant="outline-danger" href="/books">Back</Button>
+            <Button variant="danger" href="/books" style={{position: 'absolute', top: '70px', left: '10px'}}>Back</Button>
             <div className="book-details-container">
                 <Card style={{ width: '14rem', height: '425px', margin: '10px', cursor: 'pointer'}} className='cardBody'>
                     <Card.Img variant="top" src={theBook.image} alt={theBook.title} style={{height: '250px'}} />
@@ -155,7 +152,7 @@ function BookDetails(book){
                 </Card>
             </div>
             <h5>{theBook.description}</h5>
-        </Fragment>
+        </div>
         )
 }
 

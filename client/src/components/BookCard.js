@@ -130,6 +130,7 @@ function BookCard({book, onBookReturn}) {
       )
     }
 
+
     return (
         <Card style={{ width: '14rem', height: '425px', margin: '10px', cursor: 'pointer'}} className='cardBody'>
             <Card.Img variant="top" src={book.image} alt={book.title} style={{height: '250px'}} />

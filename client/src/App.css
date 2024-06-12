@@ -58,7 +58,7 @@
 .footer{
   background-color: #f8f9fa;
   height: 11.4vh;
-  box-shadow: black -10px -1px 3px;
+  box-shadow: rgb(54, 54, 54) -10px -1px 3px;
   position: relative;
 }
 
