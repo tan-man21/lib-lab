@@ -10,9 +10,11 @@ import MyBooks from './components/MyBooks';
 import BookDetails from './components/BookDetails';
 import SignUp from './components/SignUp';
 import Login from './components/Login';
+import Footer from './components/Footer';
 import { useParams } from 'react-router-dom';
 import { useState, useEffect} from 'react'
 import { useNavigate } from 'react-router-dom';
+import About from './components/About';
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
               <Fragment>
                 <NavBar />
                 <Hero />
+                <Footer />
               </Fragment>
             }/>
             <Route path='/books' element={<BookGallery />} />
@@ -33,6 +36,7 @@ function App() {
             <Route path={`/books/:bookId`} element={<BookDetails />} />
             <Route path='/signup' element={<SignUp />} />
             <Route path='/login' element={<Login />} />
+            <Route path='/about' element={<About />} />
           </Routes>
         </Fragment>
       </Router>

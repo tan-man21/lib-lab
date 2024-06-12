@@ -4,6 +4,7 @@ import BookCard from './BookCard';
 import NavBar from './NavBar';
 import { useNavigate } from 'react-router';
 import { CurrentUser } from '../contexts/CurrentUser';
+import Footer from './Footer';
 
 function BookGallery() {
 
@@ -37,6 +38,7 @@ function BookGallery() {
                     })}
                 </ul>
             </div>
+            <Footer />
         </Fragment>
     )
 }

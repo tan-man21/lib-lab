@@ -54,3 +54,22 @@
   border-radius: 18px;
   box-shadow: 3px 3px 3px rgb(31, 31, 31);
 }
+
+.footer{
+  background-color: #f8f9fa;
+  height: 11.4vh;
+  box-shadow: black -10px -1px 3px;
+  position: relative;
+}
+
+.about-background{
+  background-color: #3f568e;
+  height: 80vh;
+}
+
+.about-text{
+  color: #f8f9fa;
+  text-align: center;
+  align-content: center;
+  font-size: larger;
+}

@@ -7,6 +7,7 @@ import Alert from 'react-bootstrap/Alert'
 import { CurrentUser } from "../contexts/CurrentUser"
 import { useContext, useState } from 'react'
 import { useNavigate } from "react-router"
+import Footer from "./Footer"
 
 function Login() {
 

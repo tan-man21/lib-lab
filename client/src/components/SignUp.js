@@ -6,6 +6,7 @@ import Row from "react-bootstrap/Row"
 import Stack from 'react-bootstrap/Stack'
 import { useState } from "react"
 import { useNavigate } from "react-router"
+import Footer from "./Footer"
 
 function SignUp() {
 

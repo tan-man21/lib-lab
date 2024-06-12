@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import { useNavigate } from 'react-router';
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUser } from '../contexts/CurrentUser';
+import Footer from "./Footer";
 
 
 function MyBooks() {
@@ -124,6 +125,7 @@ function MyBooks() {
         <Fragment>
             <NavBar />
             {myBooksSection}
+            <Footer />
         </Fragment>
     )
 }
