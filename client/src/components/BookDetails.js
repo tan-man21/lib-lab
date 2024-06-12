@@ -5,7 +5,7 @@ import Alert from 'react-bootstrap/Alert'
 import NavBar from "./NavBar";
 import Button from 'react-bootstrap/Button'
 import { CurrentUser } from "../contexts/CurrentUser";
-import CommentModal from "./CommentModal";
+import ReviewModal from "./ReviewModal";
 
 function BookDetails(book){
 
@@ -199,7 +199,7 @@ function BookDetails(book){
             </div>
             <h5 style={{padding: '10px'}}>{theBook.description}</h5>
             {reviewSection}
-            <CommentModal onSubmit={createReview} show={showModal} onHide={handleClose} book={book} />
+            <ReviewModal onSubmit={createReview} show={showModal} onHide={handleClose} book={book} />
         </div>
         )
 }

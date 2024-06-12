@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import { useState, useEffect, useContext } from 'react'
 import { CurrentUser } from '../contexts/CurrentUser'
 
-function CommentModal({ book, onSubmit, onHide, show}){
+function ReviewModal({ book, onSubmit, onHide, show}){
 
     const {currentUser} = useContext(CurrentUser)
 
@@ -47,4 +47,4 @@ function CommentModal({ book, onSubmit, onHide, show}){
     )
 }
 
-export default CommentModal
+export default ReviewModal
