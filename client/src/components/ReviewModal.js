@@ -38,7 +38,7 @@ function ReviewModal({ book, onSubmit, onHide, show}){
               <Button variant="secondary" onClick={onHide}>
                 Close
               </Button>
-              <Button variant="primary" type="submit">
+              <Button variant="primary" type="submit" onClick={onHide}>
                 Submit
               </Button>
             </Modal.Footer>

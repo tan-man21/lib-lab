@@ -9,7 +9,7 @@ function ReviewCard({ review }){
 
     let deleteButton = null
 
-    if(review.userId === currentUser.userId){
+    if(review.user.userId === currentUser?.userId){
         deleteButton = (
             <>
                 <Button variant='outline-danger'>Delete</Button>
@@ -19,9 +19,11 @@ function ReviewCard({ review }){
 
 
     return (
-        <Card style={{ width: '18rem' }}>
-            <Card.Body>
+        <Card style={{ width: '18rem', marginBottom: '10px', marginRight: '10px' }}>
+            <Card.Header>
                 <Card.Title>{review.user.firstName}</Card.Title>
+            </Card.Header>
+            <Card.Body>
                 <Card.Text>
                 {review.content}
                 </Card.Text>

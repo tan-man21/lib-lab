@@ -164,28 +164,41 @@ function BookDetails(book){
       hasReviews = (
         theBook.reviews.map(review => {
           return (
-            <ReviewCard key={review.reviewId} review={review} />
+            <li style={{listStyle: 'none', display: 'inline-block'}}><ReviewCard key={review.reviewId} review={review} /></li>
           )
         })
       )
     }
 
-    if(!currentUser && !theBook.reviews){
+    if(loading){
       reviewSection = (
         <>
           <div className="review-container">
             <h3>Reviews</h3>
-            <p>No Reviews Yet.</p>
+            <p>Loading...</p>
+          </div>
+        </>
+      )
+    }else if(!currentUser && theBook.reviews){
+      reviewSection = (
+        <>
+          <div className="review-container">
+            <h3>Reviews</h3>
+            <ul style={{margin: 'auto'}}>
+              {hasReviews}
+            </ul>
+            <br></br>
             <Button variant="outline-dark" href="/login">Sign In to Leave Yours!</Button>
           </div>
         </>
       )
-    }else if(currentUser && theBook.reviews){
+    } else if(currentUser && theBook.reviews){
       reviewSection = (
         <>
           <div className="review-container">
             <h3>Reviews</h3>
             {hasReviews}
+            <br></br>
             <Button variant="outline-dark" onClick={handleShow}>Leave a Review</Button>
           </div>
         </>
