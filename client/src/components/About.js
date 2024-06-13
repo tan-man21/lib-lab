@@ -39,7 +39,7 @@ function About() {
                         </p>
                     </Col>
                     <Col>
-                        <img src="about.gif" />
+                        <img src="about.gif" alt="book-gif" />
                     </Col>
                 </Row>
             </div>

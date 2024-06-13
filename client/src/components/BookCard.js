@@ -3,14 +3,12 @@ import Button from 'react-bootstrap/Button'
 import Alert from 'react-bootstrap/Alert'
 import { useState, useEffect, useContext } from 'react';
 import { CurrentUser } from '../contexts/CurrentUser';
-import { useNavigate } from 'react-router';
 
 function BookCard({book, onBookReturn}) {
 
     const { currentUser } = useContext(CurrentUser)
   
     const [theBook, setTheBook] = useState(book)
-    // const [theBookAvailability, setTheBookAvailability] = useState(book.available)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false) //chatGPT
 
@@ -29,7 +27,7 @@ function BookCard({book, onBookReturn}) {
         }
       }
       fetchData()
-    }, [theBook.bookId, theBook.userId])
+    }, [book.bookId, theBook.userId])
 
     let errorAlert = (
       <></>

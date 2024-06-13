@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button'
 import Modal from 'react-bootstrap/Modal'
 import Form from 'react-bootstrap/Form'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { CurrentUser } from '../contexts/CurrentUser'
 
 function ReviewModal({ book, onSubmit, onHide, show}){
