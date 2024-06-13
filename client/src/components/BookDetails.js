@@ -6,6 +6,7 @@ import NavBar from "./NavBar";
 import Button from 'react-bootstrap/Button'
 import { CurrentUser } from "../contexts/CurrentUser";
 import ReviewModal from "./ReviewModal";
+import ReviewCard from "./ReviewCard";
 
 function BookDetails(book){
 
@@ -157,6 +158,17 @@ function BookDetails(book){
     }
 
     let reviewSection = null
+    let hasReviews = null
+
+    if(theBook.reviews){
+      hasReviews = (
+        theBook.reviews.map(review => {
+          return (
+            <ReviewCard key={review.reviewId} review={review} />
+          )
+        })
+      )
+    }
 
     if(!currentUser && !theBook.reviews){
       reviewSection = (
@@ -168,7 +180,17 @@ function BookDetails(book){
           </div>
         </>
       )
-    } else if(currentUser && theBook.reviews){
+    }else if(currentUser && theBook.reviews){
+      reviewSection = (
+        <>
+          <div className="review-container">
+            <h3>Reviews</h3>
+            {hasReviews}
+            <Button variant="outline-dark" onClick={handleShow}>Leave a Review</Button>
+          </div>
+        </>
+      )
+    } else {
       reviewSection = (
         <>
           <div className="review-container">

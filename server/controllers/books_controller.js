@@ -44,7 +44,8 @@ books.get('/:id', async(req, res) => {
             where: { bookId: req.params.id },
             include: {
                 model: Review,
-                as: 'reviews'
+                as: 'reviews',
+                include: 'user'
             }
         })
         res.json(oneBook)
