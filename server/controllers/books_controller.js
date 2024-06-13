@@ -100,4 +100,33 @@ books.post('/:id/reviews', async (req, res) => {
     })
 })
 
+// DELETE review
+books.delete('/:id/reviews/:reviewId', async (req, res) => {
+
+    let currentUser;
+    try {
+        const [authenticationMethod, token] = req.headers.authorization.split(' ')
+
+        if(authenticationMethod == 'Bearer'){
+            const result = await jwt.decode(process.env.JWT_SECRET, token)
+            const { id } = result.value
+
+            currentUser = await User.findOne({
+                where: {
+                    userId: id
+                }
+            })
+        }
+    } catch(err) {
+        currentUser = null
+    }
+
+    const review = await Review.findOne({
+        where: { reviewId: req.params.reviewId, bookId: req.params.id }
+    })
+
+    await review.destroy()
+    res.json(`Deleted Review`)
+})
+
 module.exports = books
