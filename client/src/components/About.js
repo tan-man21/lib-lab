@@ -35,7 +35,7 @@ function About() {
                     <Col className="about-text">
                         <h1 style={{fontWeight: 'bold'}}>About LibLab</h1>
                         <p>
-                            Here at LibLab, we offer a wide selection of books that you can choose to add to your list! And for each book you can leave personalized review. {aboutPiece}
+                            Here at LibLab, we offer a wide selection of books that you can choose to add to your list! And for each book you can leave a personalized review. {aboutPiece}
                         </p>
                     </Col>
                     <Col>
