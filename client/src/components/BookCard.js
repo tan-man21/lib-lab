@@ -38,7 +38,7 @@ function BookCard({book, onBookReturn}) {
     if(error){
         errorAlert = (
             <>
-            <Alert variant="danger" dismissible onClick={(e) => {
+            <Alert style={{zIndex: '100'}} variant="danger" dismissible onClick={(e) => {
             e.stopPropagation();
           }}>{error}</Alert>
             </>
