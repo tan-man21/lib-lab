@@ -126,7 +126,7 @@ books.delete('/:id/reviews/:reviewId', async (req, res) => {
     })
 
     await review.destroy()
-    res.json(`Deleted Review`)
+    res.json(`Deleted`)
 })
 
 module.exports = books

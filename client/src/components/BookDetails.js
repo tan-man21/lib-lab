@@ -157,6 +157,22 @@ function BookDetails(book){
       })
     }
 
+    async function deleteReview(deletedReview){
+      const response = await fetch(`http://localhost:4000/books/${bookId}/reviews/${deletedReview.reviewId}`, {
+        method: 'DELETE',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('token')}`,
+          'Content-Type': 'application/json'
+        }
+      })
+
+      setTheBook({
+        ...theBook,
+        reviews: theBook.reviews
+          .filter(review => review.reviewId !== deletedReview.reviewId)
+      })
+    }
+
     let reviewSection = null
     let hasReviews = null
 
@@ -164,7 +180,7 @@ function BookDetails(book){
       hasReviews = (
         theBook.reviews.map(review => {
           return (
-            <li style={{listStyle: 'none', display: 'inline-block'}}><ReviewCard key={review.reviewId} review={review} /></li>
+            <li style={{listStyle: 'none', display: 'inline-block'}}><ReviewCard key={review.reviewId} review={review} onDelete={() => deleteReview(review)} /></li>
           )
         })
       )

@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { CurrentUser } from '../contexts/CurrentUser';
 
-function ReviewCard({ review }){
+function ReviewCard({ review, onDelete }){
 
     const { currentUser } = useContext(CurrentUser)
 
@@ -12,7 +12,7 @@ function ReviewCard({ review }){
     if(review.user.userId === currentUser?.userId){
         deleteButton = (
             <>
-                <Button variant='outline-danger'>Delete</Button>
+                <Button variant='outline-danger' onClick={onDelete}>Delete</Button>
             </>
         )
     }
