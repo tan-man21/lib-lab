@@ -17,10 +17,11 @@ module.exports = {
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "postgres",
+    "password": "postgres",
+    "database": "lib_lab",
+    "host": "awseb-e-mwb6dcieak-stack-awsebrdsdatabase-5brm2ntuctou.clgeaewe4pj4.us-east-1.rds.amazonaws.com",
+    "port": 5432,
+    "dialect": "postgres"
   }
 }
