@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const { Sequelize } = require('sequelize')
 const cors = require('cors')
+const path = require('path')
 
 // CONFIGURATION / MIDDLEWARE
 require('dotenv').config()
@@ -9,6 +10,10 @@ const PORT = process.env.PORT
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cors())
+
+if(process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, 'client', 'build')));
+}
 
 // ROOT
 app.get('/', (req, res) => {
